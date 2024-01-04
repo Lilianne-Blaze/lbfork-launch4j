@@ -39,14 +39,35 @@
 		<url>http://sourceforge.net/p/launch4j/git/ci/master/tree/</url>
 	</scm>
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
+        <distributionManagement>
+            <repository>
+            <id>repsy-lbnet-releases</id>
+                <url>https://repo.repsy.io/mvn/lilianne_blaze/lbnet-releases</url>
+            </repository>
+            <snapshotRepository>
+                <id>repsy-lbnet-snapshots</id>
+                <url>https://repo.repsy.io/mvn/lilianne_blaze/lbnet-snapshots</url>
+            </snapshotRepository>
+        </distributionManagement>
+        
+        <repositories>
+            <repository>
+                <id>repsy-lbnet-releases</id>
+                <url>https://repo.repsy.io/mvn/lilianne_blaze/lbnet-releases</url>
+                <releases>
+                    <enabled>true</enabled>
+                </releases>
+            </repository>
+            <repository>
+                <id>repsy-lbnet-snapshots</id>
+                <url>https://repo.repsy.io/mvn/lilianne_blaze/lbnet-snapshots</url>
+                <snapshots>
+                    <enabled>true</enabled>
+                </snapshots>
+            </repository>
+        </repositories>
 
-	<properties>
+        <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<versionNumber>3.51.0.0</versionNumber>
 		<version>3.51</version>
