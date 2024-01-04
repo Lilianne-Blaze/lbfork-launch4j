@@ -48,61 +48,60 @@ import org.apache.commons.beanutils.BeanUtils;
  * @author Copyright (C) 2005 Grzegorz Kowal
  */
 public class JTextComponentBinding implements Binding {
-	private final String _property;
-	private final JTextComponent _textComponent;
-	private final String _defaultValue;
-	private final Color _validColor;
+    private final String _property;
+    private final JTextComponent _textComponent;
+    private final String _defaultValue;
+    private final Color _validColor;
 
-	public JTextComponentBinding(String property, JTextComponent textComponent,
-			String defaultValue) {
-		if (property == null || textComponent == null || defaultValue == null) {
-			throw new NullPointerException();
-		}
-		if (property.equals("")) {
-			throw new IllegalArgumentException();
-		}
-		_property = property;
-		_textComponent = textComponent;
-		_defaultValue = defaultValue;
-		_validColor = _textComponent.getBackground();
-	}
+    public JTextComponentBinding(String property, JTextComponent textComponent, String defaultValue) {
+        if (property == null || textComponent == null || defaultValue == null) {
+            throw new NullPointerException();
+        }
+        if (property.equals("")) {
+            throw new IllegalArgumentException();
+        }
+        _property = property;
+        _textComponent = textComponent;
+        _defaultValue = defaultValue;
+        _validColor = _textComponent.getBackground();
+    }
 
-	public String getProperty() {
-		return _property;
-	}
+    public String getProperty() {
+        return _property;
+    }
 
-	public void clear(IValidatable bean) {
-		_textComponent.setText(_defaultValue);
-	}
+    public void clear(IValidatable bean) {
+        _textComponent.setText(_defaultValue);
+    }
 
-	public void put(IValidatable bean) {
-		try {
-			String s = BeanUtils.getProperty(bean, _property);
-			// XXX displays zeros as blank
-			_textComponent.setText(s != null && !s.equals("0") ? s : "");
-		} catch (Exception e) {
-			throw new BindingException(e);
-		}
-	}
+    public void put(IValidatable bean) {
+        try {
+            String s = BeanUtils.getProperty(bean, _property);
+            // XXX displays zeros as blank
+            _textComponent.setText(s != null && !s.equals("0") ? s : "");
+        } catch (Exception e) {
+            throw new BindingException(e);
+        }
+    }
 
-	public void get(IValidatable bean) {
-		try {
-			BeanUtils.setProperty(bean, _property, _textComponent.getText());
-		} catch (Exception e) {
-			throw new BindingException(e);
-		}
-	}
-	
-	public void markValid() {
-		_textComponent.setBackground(_validColor);
-		_textComponent.requestFocusInWindow();
-	}
+    public void get(IValidatable bean) {
+        try {
+            BeanUtils.setProperty(bean, _property, _textComponent.getText());
+        } catch (Exception e) {
+            throw new BindingException(e);
+        }
+    }
 
-	public void markInvalid() {
-		_textComponent.setBackground(Binding.INVALID_COLOR);
-	}
-	
-	public void setEnabled(boolean enabled) {
-		_textComponent.setEnabled(enabled);
-	}
+    public void markValid() {
+        _textComponent.setBackground(_validColor);
+        _textComponent.requestFocusInWindow();
+    }
+
+    public void markInvalid() {
+        _textComponent.setBackground(Binding.INVALID_COLOR);
+    }
+
+    public void setEnabled(boolean enabled) {
+        _textComponent.setEnabled(enabled);
+    }
 }

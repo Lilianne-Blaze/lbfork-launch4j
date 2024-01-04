@@ -47,29 +47,29 @@ import net.sf.launch4j.binding.Binding;
  * @author Copyright (C) 2006 Grzegorz Kowal
  */
 public abstract class AbstractAcceptListener implements ActionListener {
-	final JTextField _field;
+    final JTextField _field;
 
-	public AbstractAcceptListener(JTextField f, boolean listen) {
-		_field = f;
-		if (listen) {
-			_field.addActionListener(this);
-		}
-	}
+    public AbstractAcceptListener(JTextField f, boolean listen) {
+        _field = f;
+        if (listen) {
+            _field.addActionListener(this);
+        }
+    }
 
-	protected String getText() {
-		return _field.getText();
-	}
-	
-	protected void clear() {
-		_field.setText("");
-		_field.requestFocusInWindow();
-	}
+    protected String getText() {
+        return _field.getText();
+    }
 
-	protected void signalViolation(String msg) {
-		final Color bg = _field.getBackground();
-		_field.setBackground(Binding.INVALID_COLOR);
-		MainFrame.getInstance().warn(msg);
-		_field.setBackground(bg);
-		_field.requestFocusInWindow();
-	}
+    protected void clear() {
+        _field.setText("");
+        _field.requestFocusInWindow();
+    }
+
+    protected void signalViolation(String msg) {
+        final Color bg = _field.getBackground();
+        _field.setBackground(Binding.INVALID_COLOR);
+        MainFrame.getInstance().warn(msg);
+        _field.setBackground(bg);
+        _field.requestFocusInWindow();
+    }
 }

@@ -49,31 +49,29 @@ import net.sf.launch4j.FileChooserFilter;
  * @author Copyright (C) 2006 Grzegorz Kowal
  */
 public class BrowseActionListener implements ActionListener {
-	private final boolean _save;
-	private final JFileChooser _fileChooser;
-	private final FileChooserFilter _filter;
-	private final JTextField _field;
+    private final boolean _save;
+    private final JFileChooser _fileChooser;
+    private final FileChooserFilter _filter;
+    private final JTextField _field;
 
-	public BrowseActionListener(boolean save, JFileChooser fileChooser,
-			FileChooserFilter filter, JTextField field) {
-		_save = save;
-		_fileChooser = fileChooser;
-		_filter = filter;
-		_field = field;
-	}
+    public BrowseActionListener(boolean save, JFileChooser fileChooser, FileChooserFilter filter, JTextField field) {
+        _save = save;
+        _fileChooser = fileChooser;
+        _filter = filter;
+        _field = field;
+    }
 
-	public void actionPerformed(ActionEvent e) {
-		if (!_field.isEnabled()) {
-			return;
-		}
-		_fileChooser.setFileFilter(_filter);
-		_fileChooser.setSelectedFile(new File(""));
-		int result = _save
-				? _fileChooser.showSaveDialog(MainFrame.getInstance())
-				: _fileChooser.showOpenDialog(MainFrame.getInstance());
-		if (result == JFileChooser.APPROVE_OPTION) {
-			_field.setText(_fileChooser.getSelectedFile().getPath());
-		}
-		_fileChooser.removeChoosableFileFilter(_filter);
-	}
+    public void actionPerformed(ActionEvent e) {
+        if (!_field.isEnabled()) {
+            return;
+        }
+        _fileChooser.setFileFilter(_filter);
+        _fileChooser.setSelectedFile(new File(""));
+        int result = _save ? _fileChooser.showSaveDialog(MainFrame.getInstance())
+                : _fileChooser.showOpenDialog(MainFrame.getInstance());
+        if (result == JFileChooser.APPROVE_OPTION) {
+            _field.setText(_fileChooser.getSelectedFile().getPath());
+        }
+        _fileChooser.removeChoosableFileFilter(_filter);
+    }
 }

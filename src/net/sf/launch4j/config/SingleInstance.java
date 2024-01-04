@@ -44,31 +44,29 @@ import net.sf.launch4j.binding.Validator;
  */
 public class SingleInstance implements IValidatable {
 
-	private String mutexName;
-	private String windowTitle;
-	
-	public void checkInvariants() {
-		Validator.checkString(mutexName, Validator.MAX_STR,
-				"singleInstance.mutexName",
-				Messages.getString("SingleInstance.mutexName"));
-		Validator.checkOptString(windowTitle, Validator.MAX_STR,
-				"singleInstance.windowTitle",
-				Messages.getString("SingleInstance.windowTitle"));
-	}
-	
-	public String getWindowTitle() {
-    	return windowTitle;
+    private String mutexName;
+    private String windowTitle;
+
+    public void checkInvariants() {
+        Validator.checkString(mutexName, Validator.MAX_STR, "singleInstance.mutexName",
+                Messages.getString("SingleInstance.mutexName"));
+        Validator.checkOptString(windowTitle, Validator.MAX_STR, "singleInstance.windowTitle",
+                Messages.getString("SingleInstance.windowTitle"));
     }
-	
-	public void setWindowTitle(String appWindowName) {
-    	this.windowTitle = appWindowName;
+
+    public String getWindowTitle() {
+        return windowTitle;
     }
-	
-	public String getMutexName() {
-    	return mutexName;
+
+    public void setWindowTitle(String appWindowName) {
+        this.windowTitle = appWindowName;
     }
-	
-	public void setMutexName(String mutexName) {
-    	this.mutexName = mutexName;
+
+    public String getMutexName() {
+        return mutexName;
+    }
+
+    public void setMutexName(String mutexName) {
+        this.mutexName = mutexName;
     }
 }

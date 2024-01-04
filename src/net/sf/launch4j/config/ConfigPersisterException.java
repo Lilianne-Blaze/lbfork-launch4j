@@ -41,11 +41,11 @@ package net.sf.launch4j.config;
  */
 public class ConfigPersisterException extends Exception {
 
-	public ConfigPersisterException(String msg, Throwable t) {
-		super(msg, t);
-	}
-	
-	public ConfigPersisterException(Throwable t) {
-		super(t);
-	}
+    public ConfigPersisterException(String msg, Throwable t) {
+        super(msg, t);
+    }
+
+    public ConfigPersisterException(Throwable t) {
+        super(t);
+    }
 }

@@ -45,19 +45,19 @@ import net.sf.launch4j.config.ClassPath;
  * @author Copyright (C) 2006 Grzegorz Kowal
  */
 public class AntClassPath extends ClassPath {
-	private final List<StringWrapper> wrappedPaths = new ArrayList<StringWrapper>();
+    private final List<StringWrapper> wrappedPaths = new ArrayList<StringWrapper>();
 
-	public void setCp(String cp){
-		StringWrapper wrapper = new StringWrapper();
-		wrapper.addText(cp);
-		wrappedPaths.add(wrapper);
-	}
-	
-	public void addCp(StringWrapper cp) {
-		wrappedPaths.add(cp);
-	}
+    public void setCp(String cp) {
+        StringWrapper wrapper = new StringWrapper();
+        wrapper.addText(cp);
+        wrappedPaths.add(wrapper);
+    }
 
-	public void unwrap() {
-		setPaths(StringWrapper.unwrap(wrappedPaths));
-	}
+    public void addCp(StringWrapper cp) {
+        wrappedPaths.add(cp);
+    }
+
+    public void unwrap() {
+        setPaths(StringWrapper.unwrap(wrappedPaths));
+    }
 }

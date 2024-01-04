@@ -48,14 +48,12 @@ import net.sf.launch4j.form.SplashForm;
  */
 public class SplashFormImpl extends SplashForm {
 
-	public SplashFormImpl(Bindings bindings, JFileChooser fc) {
-		bindings.addOptComponent("splash", Splash.class, _splashCheck)
-				.add("splash.file", _splashFileField)
-				.add("splash.waitForWindow", _waitForWindowCheck, true)
-				.add("splash.timeout", _timeoutField, "60")
-				.add("splash.timeoutErr", _timeoutErrCheck, true);
+    public SplashFormImpl(Bindings bindings, JFileChooser fc) {
+        bindings.addOptComponent("splash", Splash.class, _splashCheck).add("splash.file", _splashFileField)
+                .add("splash.waitForWindow", _waitForWindowCheck, true).add("splash.timeout", _timeoutField, "60")
+                .add("splash.timeoutErr", _timeoutErrCheck, true);
 
-		_splashFileButton.addActionListener(new BrowseActionListener(false, fc,
-				new FileChooserFilter("Bitmap files (.bmp)", ".bmp"), _splashFileField));
-	}
+        _splashFileButton.addActionListener(new BrowseActionListener(false, fc,
+                new FileChooserFilter("Bitmap files (.bmp)", ".bmp"), _splashFileField));
+    }
 }

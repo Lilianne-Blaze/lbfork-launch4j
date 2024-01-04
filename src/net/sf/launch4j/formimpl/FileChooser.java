@@ -45,22 +45,21 @@ import javax.swing.JFileChooser;
  * @author Copyright (C) 2006 Grzegorz Kowal
  */
 public class FileChooser extends JFileChooser {
-	private final Preferences _prefs;
-	private final String _key;
+    private final Preferences _prefs;
+    private final String _key;
 
-	public FileChooser(Class<?> clazz) {
-		_prefs = Preferences.userNodeForPackage(clazz);
-		_key = "currentDir-"
-			+ clazz.getName().substring(clazz.getName().lastIndexOf('.') + 1);
-		String path = _prefs.get(_key, null);
+    public FileChooser(Class<?> clazz) {
+        _prefs = Preferences.userNodeForPackage(clazz);
+        _key = "currentDir-" + clazz.getName().substring(clazz.getName().lastIndexOf('.') + 1);
+        String path = _prefs.get(_key, null);
 
-		if (path != null) {
-			setCurrentDirectory(new File(path));
-		}
-	}
+        if (path != null) {
+            setCurrentDirectory(new File(path));
+        }
+    }
 
-	public void approveSelection() {
-		_prefs.put(_key, getCurrentDirectory().getPath());
-		super.approveSelection();
-	}
+    public void approveSelection() {
+        _prefs.put(_key, getCurrentDirectory().getPath());
+        super.approveSelection();
+    }
 }

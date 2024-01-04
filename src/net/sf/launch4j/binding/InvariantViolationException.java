@@ -40,28 +40,28 @@ package net.sf.launch4j.binding;
  * @author Copyright (C) 2003 Grzegorz Kowal
  */
 public class InvariantViolationException extends RuntimeException {
-	private final String _property;
-	private Binding _binding;
+    private final String _property;
+    private Binding _binding;
 
-	public InvariantViolationException(String msg) {
-		super(msg);
-		_property = null;
-	}
+    public InvariantViolationException(String msg) {
+        super(msg);
+        _property = null;
+    }
 
-	public InvariantViolationException(String property, String msg) {
-		super(msg);
-		_property = property;
-	}
-	
-	public String getProperty() {
-		return _property;
-	}
-	
-	public Binding getBinding() {
-		return _binding;
-	}
+    public InvariantViolationException(String property, String msg) {
+        super(msg);
+        _property = property;
+    }
 
-	public void setBinding(Binding binding) {
-		_binding = binding;
-	}
+    public String getProperty() {
+        return _property;
+    }
+
+    public Binding getBinding() {
+        return _binding;
+    }
+
+    public void setBinding(Binding binding) {
+        _binding = binding;
+    }
 }

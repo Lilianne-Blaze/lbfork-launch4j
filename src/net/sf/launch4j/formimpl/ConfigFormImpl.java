@@ -49,52 +49,43 @@ import net.sf.launch4j.form.ConfigForm;
  * @author Copyright (C) 2005 Grzegorz Kowal
  */
 public class ConfigFormImpl extends ConfigForm {
-	private final Bindings _bindings = new Bindings();
-	private final JFileChooser _fileChooser = new FileChooser(ConfigFormImpl.class);
+    private final Bindings _bindings = new Bindings();
+    private final JFileChooser _fileChooser = new FileChooser(ConfigFormImpl.class);
 
-	public ConfigFormImpl() {
-		_tab.setBorder(BorderFactory.createMatteBorder(0, -1, -1, -1, getBackground()));
-		_tab.addTab(Messages.getString("tab.basic"),
-				new BasicFormImpl(_bindings, _fileChooser));
-		_tab.addTab(Messages.getString("tab.classpath"),
-				new ClassPathFormImpl(_bindings, _fileChooser));
-		_tab.addTab(Messages.getString("tab.header"),
-				new HeaderFormImpl(_bindings));
-		_tab.addTab(Messages.getString("tab.singleInstance"),
-				new SingleInstanceFormImpl(_bindings));
-		_tab.addTab(Messages.getString("tab.jre"),
-				new JreFormImpl(_bindings, _fileChooser));
-		_tab.addTab(Messages.getString("tab.envVars"),
-				new EnvironmentVarsFormImpl(_bindings));
-		_tab.addTab(Messages.getString("tab.splash"),
-				new SplashFormImpl(_bindings, _fileChooser));
-		_tab.addTab(Messages.getString("tab.version"),
-				new VersionInfoFormImpl(_bindings, _fileChooser));
-		_tab.addTab(Messages.getString("tab.messages"),
-				new MessagesFormImpl(_bindings));
-	}
+    public ConfigFormImpl() {
+        _tab.setBorder(BorderFactory.createMatteBorder(0, -1, -1, -1, getBackground()));
+        _tab.addTab(Messages.getString("tab.basic"), new BasicFormImpl(_bindings, _fileChooser));
+        _tab.addTab(Messages.getString("tab.classpath"), new ClassPathFormImpl(_bindings, _fileChooser));
+        _tab.addTab(Messages.getString("tab.header"), new HeaderFormImpl(_bindings));
+        _tab.addTab(Messages.getString("tab.singleInstance"), new SingleInstanceFormImpl(_bindings));
+        _tab.addTab(Messages.getString("tab.jre"), new JreFormImpl(_bindings, _fileChooser));
+        _tab.addTab(Messages.getString("tab.envVars"), new EnvironmentVarsFormImpl(_bindings));
+        _tab.addTab(Messages.getString("tab.splash"), new SplashFormImpl(_bindings, _fileChooser));
+        _tab.addTab(Messages.getString("tab.version"), new VersionInfoFormImpl(_bindings, _fileChooser));
+        _tab.addTab(Messages.getString("tab.messages"), new MessagesFormImpl(_bindings));
+    }
 
-	public void clear(IValidatable bean) {
-		_bindings.clear(bean);
-	}
+    public void clear(IValidatable bean) {
+        _bindings.clear(bean);
+    }
 
-	public void put(IValidatable bean) {
-		_bindings.put(bean);
-	}
+    public void put(IValidatable bean) {
+        _bindings.put(bean);
+    }
 
-	public void get(IValidatable bean) {
-		_bindings.get(bean);
-	}
-	
-	public boolean isModified() {
-		return _bindings.isModified();
-	}
-	
-	public JTextArea getLogTextArea() {
-		return _logTextArea;
-	}
-	
-	public Binding getBinding(String property) {
-		return _bindings.getBinding(property);
-	}
+    public void get(IValidatable bean) {
+        _bindings.get(bean);
+    }
+
+    public boolean isModified() {
+        return _bindings.isModified();
+    }
+
+    public JTextArea getLogTextArea() {
+        return _logTextArea;
+    }
+
+    public Binding getBinding(String property) {
+        return _bindings.getBinding(property);
+    }
 }

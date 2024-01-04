@@ -43,27 +43,27 @@ import java.util.List;
  * @author Copyright (C) 2006 Grzegorz Kowal
  */
 public class StringWrapper {
-	private String text;
+    private String text;
 
-	public static List<String> unwrap(List<StringWrapper> wrappers) {
-		if (wrappers.isEmpty()) {
-			return null;
-		}
+    public static List<String> unwrap(List<StringWrapper> wrappers) {
+        if (wrappers.isEmpty()) {
+            return null;
+        }
 
-		List<String> strings = new ArrayList<String>(wrappers.size());
+        List<String> strings = new ArrayList<String>(wrappers.size());
 
-		for (StringWrapper w : wrappers) {
-			strings.add(w.toString());
-		}
+        for (StringWrapper w : wrappers) {
+            strings.add(w.toString());
+        }
 
-		return strings;
-	}
+        return strings;
+    }
 
-	public void addText(String text) {
-		this.text = text;
-	}
+    public void addText(String text) {
+        this.text = text;
+    }
 
-	public String toString() {
-		return text;
-	}
+    public String toString() {
+        return text;
+    }
 }

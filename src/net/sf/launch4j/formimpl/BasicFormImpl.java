@@ -50,52 +50,41 @@ import net.sf.launch4j.form.BasicForm;
  */
 public class BasicFormImpl extends BasicForm {
 
-	public BasicFormImpl(Bindings bindings, JFileChooser fc) {
-		bindings.add("outfile", _outfileField)
-				.add("dontWrapJar", _dontWrapJarCheck)
-				.add("jar", _jarField)
-				.add("manifest", _manifestField)
-				.add("icon", _iconField)
-				.add("cmdLine", _cmdLineField)
-				.add("iniFile", _iniFileField)
-				.add("errTitle", _errorTitleField)
-				.add("downloadUrl", _downloadUrlField)
-				.add("supportUrl", _supportUrlField)
-				.add("chdir", _chdirField, ".")
-				.add("priorityIndex", new JRadioButton[] { _normalPriorityRadio,
-															_idlePriorityRadio,
-															_highPriorityRadio })
-				.add("stayAlive", _stayAliveCheck)
-				.add("restartOnCrash", _restartOnCrashCheck);
+    public BasicFormImpl(Bindings bindings, JFileChooser fc) {
+        bindings.add("outfile", _outfileField).add("dontWrapJar", _dontWrapJarCheck).add("jar", _jarField)
+                .add("manifest", _manifestField).add("icon", _iconField).add("cmdLine", _cmdLineField)
+                .add("iniFile", _iniFileField).add("errTitle", _errorTitleField).add("downloadUrl", _downloadUrlField)
+                .add("supportUrl", _supportUrlField).add("chdir", _chdirField, ".")
+                .add("priorityIndex",
+                        new JRadioButton[] { _normalPriorityRadio, _idlePriorityRadio, _highPriorityRadio })
+                .add("stayAlive", _stayAliveCheck).add("restartOnCrash", _restartOnCrashCheck);
 
-		_dontWrapJarCheck.addChangeListener(new DontWrapJarChangeListener());
+        _dontWrapJarCheck.addChangeListener(new DontWrapJarChangeListener());
 
-		_outfileButton.addActionListener(new BrowseActionListener(true, fc,
-				new FileChooserFilter("Windows executables (.exe)", ".exe"),
-				_outfileField));
-		_jarButton.addActionListener(new BrowseActionListener(false, fc,
-				new FileChooserFilter("Jar files", ".jar"), _jarField));
-		_manifestButton.addActionListener(new BrowseActionListener(false, fc,
-				new FileChooserFilter("Manifest files (.manifest)", ".manifest"),
-				_manifestField));
-		_iconButton.addActionListener(new BrowseActionListener(false, fc,
-				new FileChooserFilter("Icon files (.ico)", ".ico"), _iconField));
-	}
+        _outfileButton.addActionListener(new BrowseActionListener(true, fc,
+                new FileChooserFilter("Windows executables (.exe)", ".exe"), _outfileField));
+        _jarButton.addActionListener(
+                new BrowseActionListener(false, fc, new FileChooserFilter("Jar files", ".jar"), _jarField));
+        _manifestButton.addActionListener(new BrowseActionListener(false, fc,
+                new FileChooserFilter("Manifest files (.manifest)", ".manifest"), _manifestField));
+        _iconButton.addActionListener(
+                new BrowseActionListener(false, fc, new FileChooserFilter("Icon files (.ico)", ".ico"), _iconField));
+    }
 
-	private class DontWrapJarChangeListener implements ChangeListener {
+    private class DontWrapJarChangeListener implements ChangeListener {
 
-		public void stateChanged(ChangeEvent e) {
-			boolean dontWrap = _dontWrapJarCheck.isSelected();
-			if (dontWrap)  {
-				_jarLabel.setIcon(loadImage("images/asterix-o.gif"));
-			    _jarLabel.setText(Messages.getString("jarPath"));
-			    _jarField.setToolTipText(Messages.getString("jarPathTip"));
-			} else {
-				_jarLabel.setIcon(loadImage("images/asterix.gif"));
-				_jarLabel.setText(Messages.getString("jar"));
-				_jarField.setToolTipText(Messages.getString("jarTip"));
-			}
-			_jarButton.setEnabled(!dontWrap);
-		}
-	}
+        public void stateChanged(ChangeEvent e) {
+            boolean dontWrap = _dontWrapJarCheck.isSelected();
+            if (dontWrap) {
+                _jarLabel.setIcon(loadImage("images/asterix-o.gif"));
+                _jarLabel.setText(Messages.getString("jarPath"));
+                _jarField.setToolTipText(Messages.getString("jarPathTip"));
+            } else {
+                _jarLabel.setIcon(loadImage("images/asterix.gif"));
+                _jarLabel.setText(Messages.getString("jar"));
+                _jarField.setToolTipText(Messages.getString("jarTip"));
+            }
+            _jarButton.setEnabled(!dontWrap);
+        }
+    }
 }

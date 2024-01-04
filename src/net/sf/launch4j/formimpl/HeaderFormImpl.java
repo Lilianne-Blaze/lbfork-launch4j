@@ -51,67 +51,66 @@ import net.sf.launch4j.form.HeaderForm;
  * @author Copyright (C) 2006 Grzegorz Kowal
  */
 public class HeaderFormImpl extends HeaderForm {
-	private final Bindings _bindings;
+    private final Bindings _bindings;
 
-	public HeaderFormImpl(Bindings bindings) {
-		_bindings = bindings;
-		_bindings.add("headerTypeIndex", new JRadioButton[] { _guiHeaderRadio,
-															_consoleHeaderRadio,
-															_jniGuiHeaderRadio,
-															_jniConsoleHeaderRadio })
-				.add("headerObjects", "customHeaderObjects", _headerObjectsCheck,
-															_headerObjectsTextArea)
-				.add("libs", "customLibs", _libsCheck, _libsTextArea);
+    public HeaderFormImpl(Bindings bindings) {
+        _bindings = bindings;
+        _bindings
+                .add("headerTypeIndex",
+                        new JRadioButton[] { _guiHeaderRadio, _consoleHeaderRadio, _jniGuiHeaderRadio,
+                                _jniConsoleHeaderRadio })
+                .add("headerObjects", "customHeaderObjects", _headerObjectsCheck, _headerObjectsTextArea)
+                .add("libs", "customLibs", _libsCheck, _libsTextArea);
 
-		_guiHeaderRadio.setActionCommand(Config.GUI_HEADER);
-		_consoleHeaderRadio.setActionCommand(Config.CONSOLE_HEADER);
-		_jniGuiHeaderRadio.setActionCommand(Config.JNI_GUI_HEADER_32);
-		_jniConsoleHeaderRadio.setActionCommand(Config.JNI_CONSOLE_HEADER_32);
+        _guiHeaderRadio.setActionCommand(Config.GUI_HEADER);
+        _consoleHeaderRadio.setActionCommand(Config.CONSOLE_HEADER);
+        _jniGuiHeaderRadio.setActionCommand(Config.JNI_GUI_HEADER_32);
+        _jniConsoleHeaderRadio.setActionCommand(Config.JNI_CONSOLE_HEADER_32);
 
-		ActionListener headerTypeActionListener = new HeaderTypeActionListener();
-		_guiHeaderRadio.addActionListener(headerTypeActionListener);
-		_consoleHeaderRadio.addActionListener(headerTypeActionListener);
-		_jniGuiHeaderRadio.addActionListener(headerTypeActionListener);
-		_jniConsoleHeaderRadio.addActionListener(headerTypeActionListener);
-		
-		_headerObjectsCheck.addActionListener(new HeaderObjectsActionListener());
-		_libsCheck.addActionListener(new LibsActionListener());
-	}
-	
-	private void updateLibs() {
-		if (!_libsCheck.isSelected()) {
-			ConfigPersister.getInstance().getConfig().setLibs(null);
-			Binding b = _bindings.getBinding("libs");
-			b.put(ConfigPersister.getInstance().getConfig());
-		}
-	}
+        ActionListener headerTypeActionListener = new HeaderTypeActionListener();
+        _guiHeaderRadio.addActionListener(headerTypeActionListener);
+        _consoleHeaderRadio.addActionListener(headerTypeActionListener);
+        _jniGuiHeaderRadio.addActionListener(headerTypeActionListener);
+        _jniConsoleHeaderRadio.addActionListener(headerTypeActionListener);
 
-	private class HeaderTypeActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			Config c = ConfigPersister.getInstance().getConfig();
-			c.setHeaderType(e.getActionCommand());
+        _headerObjectsCheck.addActionListener(new HeaderObjectsActionListener());
+        _libsCheck.addActionListener(new LibsActionListener());
+    }
 
-			if (!_headerObjectsCheck.isSelected()) {
-				Binding b = _bindings.getBinding("headerObjects");
-				b.put(c);
-				updateLibs();
-			}
-		}
-	}
+    private void updateLibs() {
+        if (!_libsCheck.isSelected()) {
+            ConfigPersister.getInstance().getConfig().setLibs(null);
+            Binding b = _bindings.getBinding("libs");
+            b.put(ConfigPersister.getInstance().getConfig());
+        }
+    }
 
-	private class HeaderObjectsActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			if (!_headerObjectsCheck.isSelected()) {
-				ConfigPersister.getInstance().getConfig().setHeaderObjects(null);
-				Binding b = _bindings.getBinding("headerObjects");
-				b.put(ConfigPersister.getInstance().getConfig());
-			}
-		}
-	}
+    private class HeaderTypeActionListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            Config c = ConfigPersister.getInstance().getConfig();
+            c.setHeaderType(e.getActionCommand());
 
-	private class LibsActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			updateLibs();
-		}
-	}
+            if (!_headerObjectsCheck.isSelected()) {
+                Binding b = _bindings.getBinding("headerObjects");
+                b.put(c);
+                updateLibs();
+            }
+        }
+    }
+
+    private class HeaderObjectsActionListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (!_headerObjectsCheck.isSelected()) {
+                ConfigPersister.getInstance().getConfig().setHeaderObjects(null);
+                Binding b = _bindings.getBinding("headerObjects");
+                b.put(ConfigPersister.getInstance().getConfig());
+            }
+        }
+    }
+
+    private class LibsActionListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            updateLibs();
+        }
+    }
 }

@@ -49,74 +49,74 @@ import org.apache.commons.beanutils.PropertyUtils;
  * @author Copyright (C) 2006 Grzegorz Kowal
  */
 public class JListBinding<T> implements Binding {
-	private final String _property;
-	private final JList<T> _list;
-	private final Color _validColor;
+    private final String _property;
+    private final JList<T> _list;
+    private final Color _validColor;
 
-	public JListBinding(String property, JList<T> list) {
-		if (property == null || list == null) {
-			throw new NullPointerException();
-		}
-		if (property.equals("")) {
-			throw new IllegalArgumentException();
-		}
-		_property = property;
-		_list = list;
-		_validColor = _list.getBackground();
-	}
+    public JListBinding(String property, JList<T> list) {
+        if (property == null || list == null) {
+            throw new NullPointerException();
+        }
+        if (property.equals("")) {
+            throw new IllegalArgumentException();
+        }
+        _property = property;
+        _list = list;
+        _validColor = _list.getBackground();
+    }
 
-	public String getProperty() {
-		return _property;
-	}
+    public String getProperty() {
+        return _property;
+    }
 
-	public void clear(IValidatable bean) {
-		_list.setModel(new DefaultListModel<T>());
-	}
+    public void clear(IValidatable bean) {
+        _list.setModel(new DefaultListModel<T>());
+    }
 
-	public void put(IValidatable bean) {
-		try {
-			DefaultListModel<T> model = new DefaultListModel<T>();
-			@SuppressWarnings("unchecked")
-			List<T> list = (List<T>) PropertyUtils.getProperty(bean, _property);
+    public void put(IValidatable bean) {
+        try {
+            DefaultListModel<T> model = new DefaultListModel<T>();
+            @SuppressWarnings("unchecked")
+            List<T> list = (List<T>) PropertyUtils.getProperty(bean, _property);
 
-			if (list != null) {
-				for (T item : list) {
-					model.addElement(item);
-				}
-			}
+            if (list != null) {
+                for (T item : list) {
+                    model.addElement(item);
+                }
+            }
 
-			_list.setModel(model);
-		} catch (Exception e) {
-			throw new BindingException(e);
-		}
-	}
+            _list.setModel(model);
+        } catch (Exception e) {
+            throw new BindingException(e);
+        }
+    }
 
-	public void get(IValidatable bean) {
-		try {
-			DefaultListModel<T> model = (DefaultListModel<T>) _list.getModel();
-			final int size = model.getSize();
-			List<Object> list = new ArrayList<Object>(size);
+    public void get(IValidatable bean) {
+        try {
+            DefaultListModel<T> model = (DefaultListModel<T>) _list.getModel();
+            final int size = model.getSize();
+            List<Object> list = new ArrayList<Object>(size);
 
-			for (int i = 0; i < size; i++) {
-				list.add(model.get(i));
-			}
+            for (int i = 0; i < size; i++) {
+                list.add(model.get(i));
+            }
 
-			PropertyUtils.setProperty(bean, _property, list);
-		} catch (Exception e) {
-			throw new BindingException(e);
-		}
-	}
-	
-	public void markValid() {
-		_list.setBackground(_validColor);
-		_list.requestFocusInWindow();
-	}
+            PropertyUtils.setProperty(bean, _property, list);
+        } catch (Exception e) {
+            throw new BindingException(e);
+        }
+    }
 
-	public void markInvalid() {
-		_list.setBackground(Binding.INVALID_COLOR);
-	}
-	
-	public void setEnabled(boolean enabled) {
-		_list.setEnabled(enabled);
-	}
+    public void markValid() {
+        _list.setBackground(_validColor);
+        _list.requestFocusInWindow();
+    }
+
+    public void markInvalid() {
+        _list.setBackground(Binding.INVALID_COLOR);
+    }
+
+    public void setEnabled(boolean enabled) {
+        _list.setEnabled(enabled);
+    }
 }

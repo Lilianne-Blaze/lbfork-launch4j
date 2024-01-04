@@ -44,7 +44,7 @@ import net.sf.launch4j.form.EnvironmentVarsForm;
  */
 public class EnvironmentVarsFormImpl extends EnvironmentVarsForm {
 
-	public EnvironmentVarsFormImpl(Bindings bindings) {
-		bindings.add("variables", _envVarsTextArea);
-	}
+    public EnvironmentVarsFormImpl(Bindings bindings) {
+        bindings.add("variables", _envVarsTextArea);
+    }
 }

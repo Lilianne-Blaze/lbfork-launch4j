@@ -45,48 +45,44 @@ import net.sf.launch4j.binding.Validator;
  * @author Copyright (C) 2006 Grzegorz Kowal
  */
 public class ClassPath implements IValidatable {
-	private String mainClass;
-	private List<String> paths;
+    private String mainClass;
+    private List<String> paths;
 
-	public void checkInvariants() {
-		Validator.checkString(mainClass, Validator.MAX_PATH, "mainClass",
-				Messages.getString("ClassPath.mainClass"));
-		Validator.checkOptStrings(paths,
-				Validator.MAX_PATH,
-				Validator.MAX_ARGS,
-				"paths",
-				Messages.getString("ClassPath.path"));
-	}
+    public void checkInvariants() {
+        Validator.checkString(mainClass, Validator.MAX_PATH, "mainClass", Messages.getString("ClassPath.mainClass"));
+        Validator.checkOptStrings(paths, Validator.MAX_PATH, Validator.MAX_ARGS, "paths",
+                Messages.getString("ClassPath.path"));
+    }
 
-	public String getMainClass() {
-		return mainClass;
-	}
+    public String getMainClass() {
+        return mainClass;
+    }
 
-	public void setMainClass(String mainClass) {
-		this.mainClass = mainClass;
-	}
+    public void setMainClass(String mainClass) {
+        this.mainClass = mainClass;
+    }
 
-	public List<String> getPaths() {
-		return paths;
-	}
+    public List<String> getPaths() {
+        return paths;
+    }
 
-	public void setPaths(List<String> paths) {
-		this.paths = paths;
-	}
+    public void setPaths(List<String> paths) {
+        this.paths = paths;
+    }
 
-	public String getPathsString() {
-		StringBuffer sb = new StringBuffer();
+    public String getPathsString() {
+        StringBuffer sb = new StringBuffer();
 
-		if (paths != null) {
-			for (int i = 0; i < paths.size(); i++) {
-				sb.append(paths.get(i));
-	
-				if (i < paths.size() - 1) {
-					sb.append(';');
-				}
-			}
-		}
+        if (paths != null) {
+            for (int i = 0; i < paths.size(); i++) {
+                sb.append(paths.get(i));
 
-		return sb.toString();
-	}
+                if (i < paths.size() - 1) {
+                    sb.append(';');
+                }
+            }
+        }
+
+        return sb.toString();
+    }
 }

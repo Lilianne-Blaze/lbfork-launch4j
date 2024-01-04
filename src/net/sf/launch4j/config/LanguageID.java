@@ -36,12 +36,13 @@ package net.sf.launch4j.config;
 import java.util.Arrays;
 
 /**
- * @see <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa381058%28v=vs.85%29.aspx">VERSIONINFO resource</a>
- * @see <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa381057%28v=vs.85%29.aspx">VarFileInfo BLOCK</a>
+ * @see <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa381058%28v=vs.85%29.aspx">VERSIONINFO
+ *      resource</a>
+ * @see <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa381057%28v=vs.85%29.aspx">VarFileInfo
+ *      BLOCK</a>
  */
 public enum LanguageID implements Describable {
-    ALBANIAN(0x041C, Messages.getString("Language.albanian")),
-    ARABIC(0x0401, Messages.getString("Language.arabic")),
+    ALBANIAN(0x041C, Messages.getString("Language.albanian")), ARABIC(0x0401, Messages.getString("Language.arabic")),
     BAHASA(0x0421, Messages.getString("Language.bahasa")),
     DUTCH_BELGIAN(0x0813, Messages.getString("Language.belgian.dutch")),
     FRENCH_BELGIAN(0x080C, Messages.getString("Language.belgian.french")),
@@ -50,20 +51,14 @@ public enum LanguageID implements Describable {
     CASTILIAN_SPANISH(0x040A, Messages.getString("Language.spanish.castilian")),
     CATALAN(0x0403, Messages.getString("Language.catalan")),
     CROATO_SERBIAN_LATIN(0x041A, Messages.getString("Language.croato.serbian.latin")),
-    CZECH(0x0405, Messages.getString("Language.czech")),
-    DANISH(0x0406, Messages.getString("Language.danish")),
-    DUTCH(0x0413, Messages.getString("Language.dutch")),
-    ENGLISH_UK(0x0809, Messages.getString("Language.english.uk")),
+    CZECH(0x0405, Messages.getString("Language.czech")), DANISH(0x0406, Messages.getString("Language.danish")),
+    DUTCH(0x0413, Messages.getString("Language.dutch")), ENGLISH_UK(0x0809, Messages.getString("Language.english.uk")),
     ENGLISH_US(0x0409, Messages.getString("Language.english.us")),
-    FINNISH(0x040B, Messages.getString("Language.finnish")),
-    FRENCH(0x040C, Messages.getString("Language.french")),
-    GERMAN(0x0407, Messages.getString("Language.german")),
-    GREEK(0x0408, Messages.getString("Language.greek")),
-    HEBREW(0x040D, Messages.getString("Language.hebrew")),
-    HUNGARIAN(0x040E, Messages.getString("Language.hungarian")),
+    FINNISH(0x040B, Messages.getString("Language.finnish")), FRENCH(0x040C, Messages.getString("Language.french")),
+    GERMAN(0x0407, Messages.getString("Language.german")), GREEK(0x0408, Messages.getString("Language.greek")),
+    HEBREW(0x040D, Messages.getString("Language.hebrew")), HUNGARIAN(0x040E, Messages.getString("Language.hungarian")),
     ICELANDIC(0x040F, Messages.getString("Language.icelandic")),
-    ITALIAN(0x0410, Messages.getString("Language.italian")),
-    JAPANESE(0x0411, Messages.getString("Language.japanese")),
+    ITALIAN(0x0410, Messages.getString("Language.italian")), JAPANESE(0x0411, Messages.getString("Language.japanese")),
     KOREAN(0x0412, Messages.getString("Language.korean")),
     NORWEGIAN_BOKMAL(0x0414, Messages.getString("Language.norwegian.bokmal")),
     NORWEGIAN_NYNORSK(0x0814, Messages.getString("Language.norwegian.nynorsk")),
@@ -71,8 +66,7 @@ public enum LanguageID implements Describable {
     PORTUGUESE_BRAZIL(0x0416, Messages.getString("Language.portuguese.brazil")),
     PORTUGUESE_PORTUGAL(0x0816, Messages.getString("Language.portuguese.portugal")),
     RHAETO_ROMANIC(0x0417, Messages.getString("Language.rhaeto.romanic")),
-    ROMANIAN(0x0418, Messages.getString("Language.romanian")),
-    RUSSIAN(0x0419, Messages.getString("Language.russian")),
+    ROMANIAN(0x0418, Messages.getString("Language.romanian")), RUSSIAN(0x0419, Messages.getString("Language.russian")),
     SERBO_CROATIAN_CYRILLIC(0x081A, Messages.getString("Language.serbo.croatian.cyrillic")),
     SIMPLIFIED_CHINESE(0x0804, Messages.getString("Language.chinese.simplified")),
     SLOVAK(0x041B, Messages.getString("Language.slovak")),
@@ -83,9 +77,7 @@ public enum LanguageID implements Describable {
     ITALIAN_SWISS(0x0810, Messages.getString("Language.swiss.italian")),
     THAI(0x041E, Messages.getString("Language.thai")),
     TRADITIONAL_CHINESE(0x0404, Messages.getString("Language.chinese.traditional")),
-    TURKISH(0x041F, Messages.getString("Language.turkish")),
-    URDU(0x0420, Messages.getString("Language.urdu")),
-    ;
+    TURKISH(0x041F, Messages.getString("Language.turkish")), URDU(0x0420, Messages.getString("Language.urdu")),;
 
     private static final LanguageID[] VALUES = LanguageID.values();
 

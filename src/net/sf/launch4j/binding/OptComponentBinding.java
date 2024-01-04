@@ -48,75 +48,76 @@ import org.apache.commons.beanutils.PropertyUtils;
  * @author Copyright (C) 2005 Grzegorz Kowal
  */
 public class OptComponentBinding implements Binding, ActionListener {
-	private final Bindings _bindings;
-	private final String _property;
-	private final Class<? extends IValidatable> _clazz;
-	private final JToggleButton _button;
-	private final boolean _enabledByDefault;
+    private final Bindings _bindings;
+    private final String _property;
+    private final Class<? extends IValidatable> _clazz;
+    private final JToggleButton _button;
+    private final boolean _enabledByDefault;
 
-	public OptComponentBinding(Bindings bindings, String property, Class<? extends IValidatable> clazz,
-								JToggleButton button, boolean enabledByDefault) {
-		if (property == null || clazz == null || button == null) {
-			throw new NullPointerException();
-		}
+    public OptComponentBinding(Bindings bindings, String property, Class<? extends IValidatable> clazz,
+            JToggleButton button, boolean enabledByDefault) {
+        if (property == null || clazz == null || button == null) {
+            throw new NullPointerException();
+        }
 
-		if (property.equals("")) {
-			throw new IllegalArgumentException();
-		}
+        if (property.equals("")) {
+            throw new IllegalArgumentException();
+        }
 
-		if (!Arrays.asList(clazz.getInterfaces()).contains(IValidatable.class)) {
-			throw new IllegalArgumentException(
-					Messages.getString("OptComponentBinding.must.implement")
-					+ IValidatable.class);
-		}
+        if (!Arrays.asList(clazz.getInterfaces()).contains(IValidatable.class)) {
+            throw new IllegalArgumentException(
+                    Messages.getString("OptComponentBinding.must.implement") + IValidatable.class);
+        }
 
-		_bindings = bindings;
-		_property = property;
-		_clazz = clazz;
-		_button = button;
-		_button.addActionListener(this);
-		_enabledByDefault = enabledByDefault;
-	}
+        _bindings = bindings;
+        _property = property;
+        _clazz = clazz;
+        _button = button;
+        _button.addActionListener(this);
+        _enabledByDefault = enabledByDefault;
+    }
 
-	public String getProperty() {
-		return _property;
-	}
+    public String getProperty() {
+        return _property;
+    }
 
-	public void clear(IValidatable bean) {
-		_button.setSelected(_enabledByDefault);
-		updateComponents();
-	}
+    public void clear(IValidatable bean) {
+        _button.setSelected(_enabledByDefault);
+        updateComponents();
+    }
 
-	public void put(IValidatable bean) {
-		try {
-			Object component = PropertyUtils.getProperty(bean, _property);
-			_button.setSelected(component != null);
-			updateComponents();
-		} catch (Exception e) {
-			throw new BindingException(e);
-		}
-	}
+    public void put(IValidatable bean) {
+        try {
+            Object component = PropertyUtils.getProperty(bean, _property);
+            _button.setSelected(component != null);
+            updateComponents();
+        } catch (Exception e) {
+            throw new BindingException(e);
+        }
+    }
 
-	public void get(IValidatable bean) {
-		try {
-			PropertyUtils.setProperty(bean, _property, _button.isSelected()
-					? _clazz.newInstance() : null);
-		} catch (Exception e) {
-			throw new BindingException(e);
-		}
-	}
+    public void get(IValidatable bean) {
+        try {
+            PropertyUtils.setProperty(bean, _property, _button.isSelected() ? _clazz.newInstance() : null);
+        } catch (Exception e) {
+            throw new BindingException(e);
+        }
+    }
 
-	public void markValid() {}
+    public void markValid() {
+    }
 
-	public void markInvalid() {}
+    public void markInvalid() {
+    }
 
-	public void setEnabled(boolean enabled) {} // XXX implement?
+    public void setEnabled(boolean enabled) {
+    } // XXX implement?
 
-	public void actionPerformed(ActionEvent e) {
-		updateComponents();
-	}
-	
-	private void updateComponents() {
-		_bindings.setComponentsEnabled(_property, _button.isSelected());
-	}
+    public void actionPerformed(ActionEvent e) {
+        updateComponents();
+    }
+
+    private void updateComponents() {
+        _bindings.setComponentsEnabled(_property, _button.isSelected());
+    }
 }

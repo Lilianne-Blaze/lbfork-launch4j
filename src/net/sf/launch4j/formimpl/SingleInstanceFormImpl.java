@@ -45,10 +45,8 @@ import net.sf.launch4j.form.SingleInstanceForm;
  */
 public class SingleInstanceFormImpl extends SingleInstanceForm {
 
-	public SingleInstanceFormImpl(Bindings bindings) {
-		bindings.addOptComponent("singleInstance", SingleInstance.class,
-								_singleInstanceCheck)
-				.add("singleInstance.mutexName", _mutexNameField)
-				.add("singleInstance.windowTitle", _windowTitleField);
-	}
+    public SingleInstanceFormImpl(Bindings bindings) {
+        bindings.addOptComponent("singleInstance", SingleInstance.class, _singleInstanceCheck)
+                .add("singleInstance.mutexName", _mutexNameField).add("singleInstance.windowTitle", _windowTitleField);
+    }
 }

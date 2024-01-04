@@ -46,50 +46,45 @@ import net.sf.launch4j.formimpl.MainFrame;
  * @author Copyright (C) 2005 Grzegorz Kowal
  */
 public class Main {
-	private static String _name; 
-	private static String _description;
+    private static String _name;
+    private static String _description;
 
-	public static void main(String[] args) {
-		try {
-			Properties props = Util.getProperties();
-			setDescription(props);
+    public static void main(String[] args) {
+        try {
+            Properties props = Util.getProperties();
+            setDescription(props);
 
-			if (args.length == 0) {
-				ConfigPersister.getInstance().createBlank();
-				MainFrame.createInstance();
-			} else if (args.length == 1 && !args[0].startsWith("-")) {
-				ConfigPersister.getInstance().load(new File(args[0]));
-				Builder b = new Builder(Log.getConsoleLog());
-				b.build();
-			} else {
-				System.out.println(_description
-						+ Messages.getString("Main.usage")
-						+ ": launch4j config.xml");
-			}
-		} catch (Exception e) {
-			Log.getConsoleLog().append(e.getMessage());
-			System.exit(1);
-		} 
-	}
+            if (args.length == 0) {
+                ConfigPersister.getInstance().createBlank();
+                MainFrame.createInstance();
+            } else if (args.length == 1 && !args[0].startsWith("-")) {
+                ConfigPersister.getInstance().load(new File(args[0]));
+                Builder b = new Builder(Log.getConsoleLog());
+                b.build();
+            } else {
+                System.out.println(_description + Messages.getString("Main.usage") + ": launch4j config.xml");
+            }
+        } catch (Exception e) {
+            Log.getConsoleLog().append(e.getMessage());
+            System.exit(1);
+        }
+    }
 
-	public static String getName() {
-		return _name;
-	}
+    public static String getName() {
+        return _name;
+    }
 
-	public static String getDescription() {
-		return _description;
-	}
+    public static String getDescription() {
+        return _description;
+    }
 
-	private static void setDescription(Properties props) {
-		_name = "Launch4j " + props.getProperty("version"); 
-		_description = _name + 
-				" (http://launch4j.sourceforge.net/)\n" +
-				"Cross-platform Java application wrapper" +
-						" for creating Windows native executables.\n\n" +
-				"Copyright (C) 2004, 2022 Grzegorz Kowal\n\n" +
-				"Launch4j comes with ABSOLUTELY NO WARRANTY.\n" +
-				"This is free software, licensed under the BSD License.\n" +
-				"This product includes software developed by the Apache Software Foundation" +
-						" (http://www.apache.org/).";
-	}
+    private static void setDescription(Properties props) {
+        _name = "Launch4j " + props.getProperty("version");
+        _description = _name + " (http://launch4j.sourceforge.net/)\n" + "Cross-platform Java application wrapper"
+                + " for creating Windows native executables.\n\n" + "Copyright (C) 2004, 2022 Grzegorz Kowal\n\n"
+                + "Launch4j comes with ABSOLUTELY NO WARRANTY.\n"
+                + "This is free software, licensed under the BSD License.\n"
+                + "This product includes software developed by the Apache Software Foundation"
+                + " (http://www.apache.org/).";
+    }
 }

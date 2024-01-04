@@ -52,80 +52,77 @@ import net.sf.launch4j.config.VersionInfo;
  * @author Copyright (C) 2005 Grzegorz Kowal
  */
 public class AntConfig extends Config {
-	private final List<StringWrapper> wrappedHeaderObjects = new ArrayList<StringWrapper>();
-	private final List<StringWrapper> wrappedLibs = new ArrayList<StringWrapper>();
-	private final List<StringWrapper> wrappedVariables = new ArrayList<StringWrapper>();
+    private final List<StringWrapper> wrappedHeaderObjects = new ArrayList<StringWrapper>();
+    private final List<StringWrapper> wrappedLibs = new ArrayList<StringWrapper>();
+    private final List<StringWrapper> wrappedVariables = new ArrayList<StringWrapper>();
 
-	public void setJarPath(String path) {
-		setJar(new File(path));
-	}
+    public void setJarPath(String path) {
+        setJar(new File(path));
+    }
 
-	public void addObj(StringWrapper obj) {
-		wrappedHeaderObjects.add(obj);
-	}
+    public void addObj(StringWrapper obj) {
+        wrappedHeaderObjects.add(obj);
+    }
 
-	public void addLib(StringWrapper lib) {
-		wrappedLibs.add(lib);
-	}
-	
-	public void addVar(StringWrapper var) {
-		wrappedVariables.add(var);
-	}
+    public void addLib(StringWrapper lib) {
+        wrappedLibs.add(lib);
+    }
 
-	// __________________________________________________________________________________
+    public void addVar(StringWrapper var) {
+        wrappedVariables.add(var);
+    }
 
-	public void addSingleInstance(SingleInstance singleInstance) {
-		checkNull(getSingleInstance(), "singleInstance");
-		setSingleInstance(singleInstance);
-	}
+    // __________________________________________________________________________________
 
-	public void addClassPath(AntClassPath classPath) {
-		checkNull(getClassPath(), "classPath");
-		setClassPath(classPath);
-	}
+    public void addSingleInstance(SingleInstance singleInstance) {
+        checkNull(getSingleInstance(), "singleInstance");
+        setSingleInstance(singleInstance);
+    }
 
-	public void addJre(AntJre jre) {
-		checkNull(getJre(), "jre");
-		setJre(jre);
-	}
+    public void addClassPath(AntClassPath classPath) {
+        checkNull(getClassPath(), "classPath");
+        setClassPath(classPath);
+    }
 
-	public void addSplash(Splash splash) {
-		checkNull(getSplash(), "splash");
-		setSplash(splash);
-	}
+    public void addJre(AntJre jre) {
+        checkNull(getJre(), "jre");
+        setJre(jre);
+    }
 
-	public void addVersionInfo(VersionInfo versionInfo) {
-		checkNull(getVersionInfo(), "versionInfo");
-		setVersionInfo(versionInfo);
-	}
-	
-	public void addMessages(Msg messages) {
-		checkNull(getMessages(), "messages");
-		setMessages(messages);
-	}
+    public void addSplash(Splash splash) {
+        checkNull(getSplash(), "splash");
+        setSplash(splash);
+    }
 
-	// __________________________________________________________________________________
+    public void addVersionInfo(VersionInfo versionInfo) {
+        checkNull(getVersionInfo(), "versionInfo");
+        setVersionInfo(versionInfo);
+    }
 
-	public void unwrap() {
-		setHeaderObjects(StringWrapper.unwrap(wrappedHeaderObjects));
-		setLibs(StringWrapper.unwrap(wrappedLibs));
-		setVariables(StringWrapper.unwrap(wrappedVariables));
+    public void addMessages(Msg messages) {
+        checkNull(getMessages(), "messages");
+        setMessages(messages);
+    }
 
-		if (getClassPath() != null) {
-			((AntClassPath) getClassPath()).unwrap();
-		}
+    // __________________________________________________________________________________
 
-		if (getJre() != null) {
-			((AntJre) getJre()).unwrap();
-		}
-	}
+    public void unwrap() {
+        setHeaderObjects(StringWrapper.unwrap(wrappedHeaderObjects));
+        setLibs(StringWrapper.unwrap(wrappedLibs));
+        setVariables(StringWrapper.unwrap(wrappedVariables));
 
-	private void checkNull(Object o, String name) {
-		if (o != null) {
-			throw new BuildException(
-					Messages.getString("AntConfig.duplicate.element")
-					+ ": "
-					+ name);
-		}
-	}
+        if (getClassPath() != null) {
+            ((AntClassPath) getClassPath()).unwrap();
+        }
+
+        if (getJre() != null) {
+            ((AntJre) getJre()).unwrap();
+        }
+    }
+
+    private void checkNull(Object o, String name) {
+        if (o != null) {
+            throw new BuildException(Messages.getString("AntConfig.duplicate.element") + ": " + name);
+        }
+    }
 }

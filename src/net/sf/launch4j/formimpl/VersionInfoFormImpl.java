@@ -49,21 +49,19 @@ import net.sf.launch4j.form.VersionInfoForm;
  */
 public class VersionInfoFormImpl extends VersionInfoForm {
 
-	public VersionInfoFormImpl(Bindings bindings, JFileChooser fc) {
-		_languageCombo.setModel(new DefaultComboBoxModel<LanguageID>(LanguageID.sortedValues()));
-		bindings.addOptComponent("versionInfo", VersionInfo.class, _versionInfoCheck)
-				.add("versionInfo.fileVersion", _fileVersionField)
-				.add("versionInfo.productVersion", _productVersionField)
-				.add("versionInfo.fileDescription", _fileDescriptionField)
-				.add("versionInfo.internalName", _internalNameField)
-				.add("versionInfo.originalFilename", _originalFilenameField)
-				.add("versionInfo.productName", _productNameField)
-				.add("versionInfo.txtFileVersion", _txtFileVersionField)
-				.add("versionInfo.txtProductVersion", _txtProductVersionField)
-				.add("versionInfo.companyName", _companyNameField)
-				.add("versionInfo.copyright", _copyrightField)
-				.add("versionInfo.trademarks", _trademarksField)
-				.add("versionInfo.languageIndex", _languageCombo, VersionInfo.DEFAULT_LANGUAGE_INDEX)
-		;
-	}
+    public VersionInfoFormImpl(Bindings bindings, JFileChooser fc) {
+        _languageCombo.setModel(new DefaultComboBoxModel<LanguageID>(LanguageID.sortedValues()));
+        bindings.addOptComponent("versionInfo", VersionInfo.class, _versionInfoCheck)
+                .add("versionInfo.fileVersion", _fileVersionField)
+                .add("versionInfo.productVersion", _productVersionField)
+                .add("versionInfo.fileDescription", _fileDescriptionField)
+                .add("versionInfo.internalName", _internalNameField)
+                .add("versionInfo.originalFilename", _originalFilenameField)
+                .add("versionInfo.productName", _productNameField)
+                .add("versionInfo.txtFileVersion", _txtFileVersionField)
+                .add("versionInfo.txtProductVersion", _txtProductVersionField)
+                .add("versionInfo.companyName", _companyNameField).add("versionInfo.copyright", _copyrightField)
+                .add("versionInfo.trademarks", _trademarksField)
+                .add("versionInfo.languageIndex", _languageCombo, VersionInfo.DEFAULT_LANGUAGE_INDEX);
+    }
 }

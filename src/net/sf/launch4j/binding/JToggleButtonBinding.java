@@ -43,66 +43,64 @@ import javax.swing.JToggleButton;
 import org.apache.commons.beanutils.PropertyUtils;
 
 /**
- * Handles JToggleButton, JCheckBox 
+ * Handles JToggleButton, JCheckBox
  *
  * @author Copyright (C) 2005 Grzegorz Kowal
  */
 public class JToggleButtonBinding implements Binding {
-	private final String _property;
-	private final JToggleButton _button;
-	private final boolean _defaultValue;
-	private final Color _validColor;
+    private final String _property;
+    private final JToggleButton _button;
+    private final boolean _defaultValue;
+    private final Color _validColor;
 
-	public JToggleButtonBinding(String property, JToggleButton button,
-			boolean defaultValue) {
-		if (property == null || button == null) {
-			throw new NullPointerException();
-		}
-		if (property.equals("")) {
-			throw new IllegalArgumentException();
-		}
-		_property = property;
-		_button = button;
-		_defaultValue = defaultValue;
-		_validColor = _button.getBackground();
-	}
+    public JToggleButtonBinding(String property, JToggleButton button, boolean defaultValue) {
+        if (property == null || button == null) {
+            throw new NullPointerException();
+        }
+        if (property.equals("")) {
+            throw new IllegalArgumentException();
+        }
+        _property = property;
+        _button = button;
+        _defaultValue = defaultValue;
+        _validColor = _button.getBackground();
+    }
 
-	public String getProperty() {
-		return _property;
-	}
+    public String getProperty() {
+        return _property;
+    }
 
-	public void clear(IValidatable bean) {
-		_button.setSelected(_defaultValue);
-	}
+    public void clear(IValidatable bean) {
+        _button.setSelected(_defaultValue);
+    }
 
-	public void put(IValidatable bean) {
-		try {
-			Boolean b = (Boolean) PropertyUtils.getProperty(bean, _property);
-			_button.setSelected(b != null && b.booleanValue());
-		} catch (Exception e) {
-			throw new BindingException(e);
-		}
-	}
+    public void put(IValidatable bean) {
+        try {
+            Boolean b = (Boolean) PropertyUtils.getProperty(bean, _property);
+            _button.setSelected(b != null && b.booleanValue());
+        } catch (Exception e) {
+            throw new BindingException(e);
+        }
+    }
 
-	public void get(IValidatable bean) {
-		try {
-			PropertyUtils.setProperty(bean, _property,
-					Boolean.valueOf(_button.isSelected()));
-		} catch (Exception e) {
-			throw new BindingException(e);
-		}
-	}
-	
-	public void markValid() {
-		_button.setBackground(_validColor);
-		_button.requestFocusInWindow();
-	}
+    public void get(IValidatable bean) {
+        try {
+            PropertyUtils.setProperty(bean, _property, Boolean.valueOf(_button.isSelected()));
+        } catch (Exception e) {
+            throw new BindingException(e);
+        }
+    }
 
-	public void markInvalid() {
-		_button.setBackground(Binding.INVALID_COLOR);
-	}
-	
-	public void setEnabled(boolean enabled) {
-		_button.setEnabled(enabled);
-	}
+    public void markValid() {
+        _button.setBackground(_validColor);
+        _button.requestFocusInWindow();
+    }
+
+    public void markInvalid() {
+        _button.setBackground(Binding.INVALID_COLOR);
+    }
+
+    public void setEnabled(boolean enabled) {
+        _button.setEnabled(enabled);
+    }
 }

@@ -43,63 +43,66 @@ import javax.swing.SwingUtilities;
  * @author Copyright (C) 2005 Grzegorz Kowal
  */
 public abstract class Log {
-	private static final Log _consoleLog = new ConsoleLog();
-	private static final Log _antLog = new AntLog();
+    private static final Log _consoleLog = new ConsoleLog();
+    private static final Log _antLog = new AntLog();
 
-	public abstract void clear();
-	public abstract void append(String line);
+    public abstract void clear();
 
-	public static Log getConsoleLog() {
-		return _consoleLog;
-	}
-	
-	public static Log getAntLog() {
-		return _antLog;
-	}
+    public abstract void append(String line);
 
-	public static Log getSwingLog(JTextArea textArea) {
-		return new SwingLog(textArea);
-	}
+    public static Log getConsoleLog() {
+        return _consoleLog;
+    }
+
+    public static Log getAntLog() {
+        return _antLog;
+    }
+
+    public static Log getSwingLog(JTextArea textArea) {
+        return new SwingLog(textArea);
+    }
 }
 
 class ConsoleLog extends Log {
-	public void clear() {
-		System.out.println("\n");
-	}
+    public void clear() {
+        System.out.println("\n");
+    }
 
-	public void append(String line) {
-		System.out.println("launch4j: " + line);
-	}
+    public void append(String line) {
+        System.out.println("launch4j: " + line);
+    }
 }
 
 class AntLog extends Log {
-	public void clear() {
-		System.out.println("\n");
-	}
+    public void clear() {
+        System.out.println("\n");
+    }
 
-	public void append(String line) {
-		System.out.println(line);
-	}
+    public void append(String line) {
+        System.out.println(line);
+    }
 }
 
 class SwingLog extends Log {
-	private final JTextArea _textArea;
+    private final JTextArea _textArea;
 
-	public SwingLog(JTextArea textArea) {
-		_textArea = textArea;
-	}
+    public SwingLog(JTextArea textArea) {
+        _textArea = textArea;
+    }
 
-	public void clear() {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				_textArea.setText("");
-		}});
-	}
+    public void clear() {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                _textArea.setText("");
+            }
+        });
+    }
 
-	public void append(final String line) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				_textArea.append(line + "\n");
-		}});
-	}
+    public void append(final String line) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                _textArea.append(line + "\n");
+            }
+        });
+    }
 }

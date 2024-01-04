@@ -40,27 +40,27 @@ package net.sf.launch4j;
  * @author Copyright (C) 2005 Grzegorz Kowal
  */
 public class ExecException extends Exception {
-	private final int _errLine;
+    private final int _errLine;
 
-	public ExecException(Throwable t, int errLine) {
-		super(t);
-		_errLine = errLine;
-	}
+    public ExecException(Throwable t, int errLine) {
+        super(t);
+        _errLine = errLine;
+    }
 
-	public ExecException(Throwable t) {
-		this(t, -1);
-	}
+    public ExecException(Throwable t) {
+        this(t, -1);
+    }
 
-	public ExecException(String msg, int errLine) {
-		super(msg);
-		_errLine = errLine;
-	}
+    public ExecException(String msg, int errLine) {
+        super(msg);
+        _errLine = errLine;
+    }
 
-	public ExecException(String msg) {
-		this(msg, -1);
-	}
+    public ExecException(String msg) {
+        this(msg, -1);
+    }
 
-	public int getErrLine() {
-		return _errLine;
-	}
+    public int getErrLine() {
+        return _errLine;
+    }
 }

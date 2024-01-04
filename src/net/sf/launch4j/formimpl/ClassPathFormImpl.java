@@ -62,161 +62,156 @@ import net.sf.launch4j.form.ClassPathForm;
  * @author Copyright (C) 2006 Grzegorz Kowal
  */
 public class ClassPathFormImpl extends ClassPathForm {
-	private final JFileChooser _fileChooser;
-	private final FileChooserFilter _filter
-			= new FileChooserFilter("Executable jar", ".jar");
+    private final JFileChooser _fileChooser;
+    private final FileChooserFilter _filter = new FileChooserFilter("Executable jar", ".jar");
 
-	public ClassPathFormImpl(Bindings bindings, JFileChooser fc) {
-		bindings.addOptComponent("classPath", ClassPath.class, _classpathCheck)
-				.add("classPath.mainClass", _mainclassField)
-				.add("classPath.paths", _classpathList);
-		_fileChooser = fc;
+    public ClassPathFormImpl(Bindings bindings, JFileChooser fc) {
+        bindings.addOptComponent("classPath", ClassPath.class, _classpathCheck)
+                .add("classPath.mainClass", _mainclassField).add("classPath.paths", _classpathList);
+        _fileChooser = fc;
 
-		ClasspathCheckListener cpl = new ClasspathCheckListener();
-		_classpathCheck.addChangeListener(cpl);
-		cpl.stateChanged(null);
+        ClasspathCheckListener cpl = new ClasspathCheckListener();
+        _classpathCheck.addChangeListener(cpl);
+        cpl.stateChanged(null);
 
-		_classpathList.setModel(new DefaultListModel<String>());
-		_classpathList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		_classpathList.addListSelectionListener(new ClasspathSelectionListener());
+        _classpathList.setModel(new DefaultListModel<String>());
+        _classpathList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        _classpathList.addListSelectionListener(new ClasspathSelectionListener());
 
-		_newClasspathButton.addActionListener(new NewClasspathListener());
-		_acceptClasspathButton.addActionListener(
-				new AcceptClasspathListener(_classpathField));
-		_removeClasspathButton.addActionListener(new RemoveClasspathListener());
-		_importClasspathButton.addActionListener(new ImportClasspathListener());
-		_classpathUpButton.addActionListener(new MoveUpListener());
-		_classpathDownButton.addActionListener(new MoveDownListener());
-	}
+        _newClasspathButton.addActionListener(new NewClasspathListener());
+        _acceptClasspathButton.addActionListener(new AcceptClasspathListener(_classpathField));
+        _removeClasspathButton.addActionListener(new RemoveClasspathListener());
+        _importClasspathButton.addActionListener(new ImportClasspathListener());
+        _classpathUpButton.addActionListener(new MoveUpListener());
+        _classpathDownButton.addActionListener(new MoveDownListener());
+    }
 
-	private class ClasspathCheckListener implements ChangeListener {
-		public void stateChanged(ChangeEvent e) {
-			boolean on = _classpathCheck.isSelected();
-			_importClasspathButton.setEnabled(on);
-			_classpathUpButton.setEnabled(on);
-			_classpathDownButton.setEnabled(on);
-			_classpathField.setEnabled(on);
-			_newClasspathButton.setEnabled(on);
-			_acceptClasspathButton.setEnabled(on);
-			_removeClasspathButton.setEnabled(on);
-		}
-	}
+    private class ClasspathCheckListener implements ChangeListener {
+        public void stateChanged(ChangeEvent e) {
+            boolean on = _classpathCheck.isSelected();
+            _importClasspathButton.setEnabled(on);
+            _classpathUpButton.setEnabled(on);
+            _classpathDownButton.setEnabled(on);
+            _classpathField.setEnabled(on);
+            _newClasspathButton.setEnabled(on);
+            _acceptClasspathButton.setEnabled(on);
+            _removeClasspathButton.setEnabled(on);
+        }
+    }
 
-	private class NewClasspathListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			_classpathList.clearSelection();
-			_classpathField.setText("");
-			_classpathField.requestFocusInWindow();
-		}
-	}
+    private class NewClasspathListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            _classpathList.clearSelection();
+            _classpathField.setText("");
+            _classpathField.requestFocusInWindow();
+        }
+    }
 
-	private class AcceptClasspathListener extends AbstractAcceptListener {
-		public AcceptClasspathListener(JTextField f) {
-			super(f, true);
-		}
+    private class AcceptClasspathListener extends AbstractAcceptListener {
+        public AcceptClasspathListener(JTextField f) {
+            super(f, true);
+        }
 
-		public void actionPerformed(ActionEvent e) {
-			String cp = getText();
-			if (Validator.isEmpty(cp)) {
-				signalViolation(Messages.getString("specifyClassPath"));
-				return;
-			}
-			DefaultListModel<String> model = (DefaultListModel<String>) _classpathList.getModel();
-			if (_classpathList.isSelectionEmpty()) {
-				model.addElement(cp);
-				clear();
-			} else {
-				model.setElementAt(cp, _classpathList.getSelectedIndex());
-			}
-		}
-	}
+        public void actionPerformed(ActionEvent e) {
+            String cp = getText();
+            if (Validator.isEmpty(cp)) {
+                signalViolation(Messages.getString("specifyClassPath"));
+                return;
+            }
+            DefaultListModel<String> model = (DefaultListModel<String>) _classpathList.getModel();
+            if (_classpathList.isSelectionEmpty()) {
+                model.addElement(cp);
+                clear();
+            } else {
+                model.setElementAt(cp, _classpathList.getSelectedIndex());
+            }
+        }
+    }
 
-	private class ClasspathSelectionListener implements ListSelectionListener {
-		public void valueChanged(ListSelectionEvent e) {
-			if (e.getValueIsAdjusting()) {
-				return;
-			}
-			if (_classpathList.isSelectionEmpty()) {
-				_classpathField.setText("");
-			} else {
-				_classpathField.setText((String) _classpathList.getSelectedValue());
-			}
-			_classpathField.requestFocusInWindow();
-		}
-	}
-	
-	private class RemoveClasspathListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			if (_classpathList.isSelectionEmpty()
-					|| !MainFrame.getInstance().confirm(
-							Messages.getString("confirmClassPathRemoval"))) {
-				return;
-			}
-			DefaultListModel<String> model = (DefaultListModel<String>) _classpathList.getModel();
-			while (!_classpathList.isSelectionEmpty()) {
-				model.remove(_classpathList.getSelectedIndex());
-			}
-		}
-	}
-	
-	private class MoveUpListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			int x = _classpathList.getSelectedIndex();
-			if (x < 1) {
-				return;
-			}
-			DefaultListModel<String> model = (DefaultListModel<String>) _classpathList.getModel();
-			String s = model.get(x - 1);
-			model.set(x - 1, model.get(x));
-			model.set(x, s);
-			_classpathList.setSelectedIndex(x - 1);
-		}
-	}
-	
-	private class MoveDownListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			DefaultListModel<String> model = (DefaultListModel<String>) _classpathList.getModel();
-			int x = _classpathList.getSelectedIndex();
-			if (x == -1 || x >= model.getSize() - 1) {
-				return;
-			}
-			String s = model.get(x + 1);
-			model.set(x + 1, model.get(x));
-			model.set(x, s);
-			_classpathList.setSelectedIndex(x + 1);
-		}
-	}
+    private class ClasspathSelectionListener implements ListSelectionListener {
+        public void valueChanged(ListSelectionEvent e) {
+            if (e.getValueIsAdjusting()) {
+                return;
+            }
+            if (_classpathList.isSelectionEmpty()) {
+                _classpathField.setText("");
+            } else {
+                _classpathField.setText((String) _classpathList.getSelectedValue());
+            }
+            _classpathField.requestFocusInWindow();
+        }
+    }
 
-	private class ImportClasspathListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			try {
-				_fileChooser.setFileFilter(_filter);
-				_fileChooser.setSelectedFile(new File(""));
-				if (_fileChooser.showOpenDialog(MainFrame.getInstance())
-						== JFileChooser.APPROVE_OPTION) {
-					JarFile jar = new JarFile(_fileChooser.getSelectedFile());
-					if (jar.getManifest() == null) {
-						jar.close();
-						MainFrame.getInstance().info(Messages.getString("noManifest"));
-						return;
-					}
-					Attributes attr = jar.getManifest().getMainAttributes();
-					String mainClass = (String) attr.getValue("Main-Class");
-					String classPath = (String) attr.getValue("Class-Path");
-					jar.close();
-					_mainclassField.setText(mainClass != null ? mainClass : "");
-					DefaultListModel<String> model = new DefaultListModel<String>();
-					if (classPath != null) {
-						String[] paths = classPath.split(" ");
-						for (int i = 0; i < paths.length; i++) {
-							model.addElement(paths[i]);
-						}
-					}
-					_classpathList.setModel(model);
-				}
-			} catch (IOException ex) {
-				MainFrame.getInstance().warn(ex.getMessage());
-			}
-		}
-	}
+    private class RemoveClasspathListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (_classpathList.isSelectionEmpty()
+                    || !MainFrame.getInstance().confirm(Messages.getString("confirmClassPathRemoval"))) {
+                return;
+            }
+            DefaultListModel<String> model = (DefaultListModel<String>) _classpathList.getModel();
+            while (!_classpathList.isSelectionEmpty()) {
+                model.remove(_classpathList.getSelectedIndex());
+            }
+        }
+    }
+
+    private class MoveUpListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            int x = _classpathList.getSelectedIndex();
+            if (x < 1) {
+                return;
+            }
+            DefaultListModel<String> model = (DefaultListModel<String>) _classpathList.getModel();
+            String s = model.get(x - 1);
+            model.set(x - 1, model.get(x));
+            model.set(x, s);
+            _classpathList.setSelectedIndex(x - 1);
+        }
+    }
+
+    private class MoveDownListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            DefaultListModel<String> model = (DefaultListModel<String>) _classpathList.getModel();
+            int x = _classpathList.getSelectedIndex();
+            if (x == -1 || x >= model.getSize() - 1) {
+                return;
+            }
+            String s = model.get(x + 1);
+            model.set(x + 1, model.get(x));
+            model.set(x, s);
+            _classpathList.setSelectedIndex(x + 1);
+        }
+    }
+
+    private class ImportClasspathListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            try {
+                _fileChooser.setFileFilter(_filter);
+                _fileChooser.setSelectedFile(new File(""));
+                if (_fileChooser.showOpenDialog(MainFrame.getInstance()) == JFileChooser.APPROVE_OPTION) {
+                    JarFile jar = new JarFile(_fileChooser.getSelectedFile());
+                    if (jar.getManifest() == null) {
+                        jar.close();
+                        MainFrame.getInstance().info(Messages.getString("noManifest"));
+                        return;
+                    }
+                    Attributes attr = jar.getManifest().getMainAttributes();
+                    String mainClass = (String) attr.getValue("Main-Class");
+                    String classPath = (String) attr.getValue("Class-Path");
+                    jar.close();
+                    _mainclassField.setText(mainClass != null ? mainClass : "");
+                    DefaultListModel<String> model = new DefaultListModel<String>();
+                    if (classPath != null) {
+                        String[] paths = classPath.split(" ");
+                        for (int i = 0; i < paths.length; i++) {
+                            model.addElement(paths[i]);
+                        }
+                    }
+                    _classpathList.setModel(model);
+                }
+            } catch (IOException ex) {
+                MainFrame.getInstance().warn(ex.getMessage());
+            }
+        }
+    }
 }

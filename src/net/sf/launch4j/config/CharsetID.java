@@ -34,9 +34,12 @@
 package net.sf.launch4j.config;
 
 import java.util.Arrays;
+
 /**
- * @see <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa381058%28v=vs.85%29.aspx">VERSIONINFO resource</a>
- * @see <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa381057%28v=vs.85%29.aspx">VarFileInfo BLOCK</a>
+ * @see <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa381058%28v=vs.85%29.aspx">VERSIONINFO
+ *      resource</a>
+ * @see <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa381057%28v=vs.85%29.aspx">VarFileInfo
+ *      BLOCK</a>
  */
 public enum CharsetID implements Describable {
     /** 0x0000 */
@@ -62,8 +65,7 @@ public enum CharsetID implements Describable {
     /** 0x04E6 */
     TURKISH(1254, Messages.getString("Language.turkish")),
     /** 0x04B0 */
-    UNICODE(1200, Messages.getString("Charset.unicode")),
-    ;
+    UNICODE(1200, Messages.getString("Charset.unicode")),;
 
     private static final CharsetID[] VALUES = CharsetID.values();
 

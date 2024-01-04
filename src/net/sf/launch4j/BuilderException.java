@@ -40,13 +40,14 @@ package net.sf.launch4j;
  * @author Copyright (C) 2005 Grzegorz Kowal
  */
 public class BuilderException extends Exception {
-	public BuilderException() {}
+    public BuilderException() {
+    }
 
-	public BuilderException(Throwable t) {
-		super(t);
-	}
-	
-	public BuilderException(String msg) {
-		super(msg);
-	}
+    public BuilderException(Throwable t) {
+        super(t);
+    }
+
+    public BuilderException(String msg) {
+        super(msg);
+    }
 }
